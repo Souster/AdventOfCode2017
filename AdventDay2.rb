@@ -1,3 +1,4 @@
+# Question 1
 def calculate(numberArray)
   difference = 0
   numberArray.each do |individual|
