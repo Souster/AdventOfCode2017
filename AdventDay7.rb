@@ -44,7 +44,7 @@ def find_highest_value_in_tree(name)
   current = find_in_array(name)
   tree = []
   for i in 2..current.length - 1
-    find_weights(current[i])
+    get_tree_total_weight(current[i])
     tree.push([current[i],@current_weight])
     @current_weight = 0
   end
@@ -63,14 +63,14 @@ def find_highest_value_in_tree(name)
   end
 end
 
-def find_weights(lowest)
+def get_tree_total_weight(lowest)
   #Find the weight in each column of the tree
   current = find_in_array(lowest)
   @current_weight += get_value(current[1])
   if current.length > 2
     for i in 2..current.length - 1
       #search for each item, add weight, iterate through each of them
-      find_weights(current[i])
+      get_tree_total_weight(current[i])
     end
   end
 end
