@@ -37,10 +37,7 @@ def analyse_letter(full_string)
 end
 
 def find_groups2(input_sting)
-  $overall_count = 0
-  $current_count = 0
   $current_index = 0
-  $open_groups = 0
   $open_garbage = false
   $garbage_count = 0
   while $current_index <= input_sting.length - 1
@@ -62,19 +59,7 @@ def analyse_letter2(full_string)
     elsif current_letter.eql? ">"
       $open_garbage = false
     end
-
-    if !$open_garbage
-      if current_letter.eql? "{"
-        $current_count += 1
-        $open_groups += 1
-      elsif current_letter.eql? "}"
-        if $open_groups >= 1
-          $overall_count += $current_count
-          $current_count -= 1
-          $open_groups -= 1
-        end
-      end
-    else
+    if $open_garbage
       $garbage_count += 1
     end
   end
