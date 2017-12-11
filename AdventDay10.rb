@@ -1,15 +1,7 @@
-# arr = [[0,0,0],[0,1,0],[0,0,0]]
-# puts "#{arr}"
-# arr.unshift(["a","b"])
-# arr.push(["y","z"])
-# arr[1].unshift("b")
-
-def run(iteration_count)
-  #Do dynamic pushing and unshifting based on current size vs orignal in i and j increment steps
+def run(iteration_count, desired)
   arr = [[0,0,0],[0,1,0],[0,0,0]]
   i = 1
   j = 1
-  original_size = 2
   current_ring = 2
   up = 2
   left = 2
@@ -18,9 +10,7 @@ def run(iteration_count)
   max_rings_to_make = current_ring + (iteration_count)
   value_to_add = 1
   add = true
-
   while i <= current_ring and j <= current_ring
-    value_to_add += 1
     if (i < current_ring and i > 0) and (j < current_ring and j > 0)
       j += 1
     elsif (i > 0 and i < current_ring) and  j == current_ring
@@ -68,16 +58,37 @@ def run(iteration_count)
       end
     end
     if add
-      print_i_and_j(i,j, value_to_add)
+      value_to_add = calculate_next_value(arr,i,j)
+      puts "I: #{i}, J: #{j}, value:#{value}"
+
+      if value_to_add > desired
+        puts "First Value > #{desired}: #{value_to_add}"
+        break
+      end
       arr[i][j] = value_to_add
-      puts "Arr: #{arr}"
     end
     add = true
   end
 end
 
-def print_i_and_j(i,j,value)
-  puts "I: #{i}, J: #{j}, value:#{value}"
+def calculate_next_value(arr,down,across)
+  total = 0
+  begin
+    for i in (down-1)..(down+1)
+      for j in (across-1)..(across+1)
+        if i < 0
+          total += 0
+        elsif j < 0
+          total += 0
+        else
+          total += arr[i][j].to_i
+        end
+      end
+    end
+  rescue
+    total += 0
+  end
+  return total
 end
 
-run(3)
+run(21, 361527)
