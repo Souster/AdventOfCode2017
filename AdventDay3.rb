@@ -39,12 +39,12 @@ def count_steps(number)
       end
 
       total = up + across
-      puts "total = #{total}"
+      puts "Total steps: #{total}"
       break
     end
   end
 end
-# count_steps(361527)
+count_steps(361527)
 
 # Question 2
 
