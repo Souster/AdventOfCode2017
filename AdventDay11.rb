@@ -3,22 +3,11 @@ def calculate_hex_steps(full_instructions)
   number_of_steps = 1
   previous_instruction = instructions_array[0]
   current_instruction = ""
-  previous_vertical = ""
-  previous_horizontal = ""
-  current_vertical = ""
-  current_horizontal = ""
   directions_list = ["nw","n", "ne", "se", "s", "sw"]
 
   for i in 1..instructions_array.length - 1
-    previous_vertical = previous_instruction[0]
-    if previous_instruction.length > 1
-      previous_horizontal = previous_instruction[1]
-    end
     current_instruction = instructions_array[i]
-    current_vertical = current_instruction[0]
-    if current_vertical.length > 1
-      current_vertical = current_instruction[1]
-    end
+    puts "Previous"
 
     previous_index = directions_list.index(previous_instruction)
     jump_count = 0
