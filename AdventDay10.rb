@@ -1,46 +1,47 @@
 # Question 1
 
-# def count(lengths_array)
-#   skip = 0
-#   starting_point = 0
+def count(lengths_array)
+  skip = 0
+  starting_point = 0
 
-#   characters_array = []
-#   for i in 0..255 do
-#     characters_array.push(i)
-#   end
-#   lengths_array.each do |length|
-#     end_point = starting_point + length.to_i
-#     temp = []
-#     for i in starting_point..(end_point - 1)
-#       if i >= characters_array.length
-#         temp.push(characters_array[(i - characters_array.length)])
-#       else
-#         temp.push(characters_array[i])
-#       end
-#     end
-#     temp = temp.reverse
-#     for  i in starting_point..(end_point - 1)
-#       if i >- characters_array.length
-#         characters_array[i - characters_array.length] = temp[i - starting_point]
-#       else
-#         characters_array[i] = temp[i - starting_point]
-#       end
-#     end
-#     starting_point += length.to_i + skip
-#     if starting_point > characters_array.length
-#       starting_point -= characters_array.length
-#     end
-#     skip += 1
-#   end
-#   result = characters_array[0] * characters_array[1]
-#   puts "Result: #{result}"
-# end
+  characters_array = []
+  for i in 0..255 do
+    characters_array.push(i)
+  end
+  lengths_array.each do |length|
+    end_point = starting_point + length.to_i
+    temp = []
+    for i in starting_point..(end_point - 1)
+      if i >= characters_array.length
+        temp.push(characters_array[(i - characters_array.length)])
+      else
+        temp.push(characters_array[i])
+      end
+    end
+    temp = temp.reverse
+    for  i in starting_point..(end_point - 1)
+      if i >- characters_array.length
+        characters_array[i - characters_array.length] = temp[i - starting_point]
+      else
+        characters_array[i] = temp[i - starting_point]
+      end
+    end
+    starting_point += length.to_i + skip
+    if starting_point > characters_array.length
+      starting_point -= characters_array.length
+    end
+    skip += 1
+  end
+  result = characters_array[0] * characters_array[1]
+  puts "Result: #{result}"
+end
+# count("192,69,168,160,78,1,166,28,0,83,198,2,254,255,41,12")
 
 # Question 2
 
 def count2(lengths_array)
-  suffix = ",17,31,73,47,23"
-  char_array = (lengths_array.pack('U*') + suffix).split(',')
+  char_array = (lengths_array.unpack('U*'))
+  char_array.push(17,31,73,47,23)
 
   skip = -1
   starting_point = 0
@@ -49,7 +50,7 @@ def count2(lengths_array)
   for i in 0..255 do
     characters_array.push(i)
   end
-  for i in 0..64 do
+  for i in 0..63 do
     char_array.each do |length|
       end_point = starting_point + length.to_i
       temp = []
@@ -82,11 +83,25 @@ def count2(lengths_array)
       end
     end
   end
-  puts "#{characters_array}"
-end
+  split_array = characters_array.each_slice(16)
+  xors = []
 
-def print_out(var)
-  puts "#{var}"
-end
+  split_array.each do |arr|
+    xor = arr[0]
+    for i in 1..15
+      xor = xor ^ arr[i]
+    end
+    xors.push(xor)
+  end
+  hex_string = ""
 
-count2([49, 57, 50, 44, 54, 57, 44, 49, 54, 56, 44, 49, 54, 48, 44, 55, 56, 44, 49, 44, 49, 54, 54, 44, 50, 56, 44, 48, 44, 56, 51, 44, 49, 57, 56, 44, 50, 44, 50, 53, 52, 44, 50, 53, 53, 44, 52, 49, 44, 49, 50])
+  xors.each do |xor|
+    new_hex = xor.to_s(16)
+    if new_hex.length < 2
+      new_hex = "0" + new_hex
+    end
+    hex_string += new_hex
+  end
+  puts "hex: #{hex_string}"
+end
+count2("192,69,168,160,78,1,166,28,0,83,198,2,254,255,41,12")
