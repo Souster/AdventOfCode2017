@@ -7,7 +7,9 @@ def calculate_hex_steps(full_instructions)
 
   for i in 1..instructions_array.length - 1
     current_instruction = instructions_array[i]
-    puts "Previous"
+    puts "Step count before new: #{number_of_steps}"
+    puts "Previous instruction: #{previous_instruction}"
+    puts "Current instruction: #{current_instruction}"
 
     previous_index = directions_list.index(previous_instruction)
     jump_count = 0
@@ -21,8 +23,9 @@ def calculate_hex_steps(full_instructions)
       else
         jump_count += 1
       end
-      puts "jump count: #{jump_count}"
     end
+    puts "jump count: #{jump_count}"
+
     number_of_steps += calculate_step_from_direction_jumps(jump_count)
     previous_instruction = current_instruction
     puts "number of steps: #{number_of_steps}"
